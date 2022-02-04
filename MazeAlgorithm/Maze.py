@@ -11,12 +11,13 @@ import os # To print colors in a windows terminal
 os.system('color')
 colorama.init()
 
-def FailMessage(fail): # Print a message if the maze generation fails
+def FailMessage(fail,f): # Print a message if the maze generation fails
     if fail == 1:
         print("\n\nsorry, an obstacle blocked the initial position")
     elif fail ==0:
-        print("\n\nSorry, an obstacle blocked the goal position")  
-    input("\nPress a key to finish...")
+        print("\n\nSorry, an obstacle blocked the goal position")
+    if f != 1:  
+        input("\nPress a key to finish...")
     sys.exit() 
 
 def searchObstacle(list, state): # Search in a list function
@@ -25,7 +26,7 @@ def searchObstacle(list, state): # Search in a list function
             return True
     return False
 
-def mazeGenerator(rows,columns, ObstaclesPercent):
+def mazeGenerator(rows,columns, ObstaclesPercent,f):
 
     state = 0 # To count the number of the current position in left-to-right then up-to-down order
     Total = rows*columns # Total number of spaces
@@ -66,16 +67,22 @@ def mazeGenerator(rows,columns, ObstaclesPercent):
         for j in range(0,columns): # Going through columns        
 
             if searchObstacle(obstaclesPosition,state) == True and state == InitialState: # Check if initial state coincide with an obstacle
-                return FailMessage(1) # Halt and return fail message
+                return FailMessage(1,f) # Halt and return fail message
             elif searchObstacle(obstaclesPosition,state) == True and state == FinalState: #Check if goal concide with an obstacle
-                return FailMessage(0) #Halt and return fail message
+                return FailMessage(0,f) #Halt and return fail message
 
             if state == (InitialState):
-                print(end=colored("I",'green')) # Print the initial state position
+                if f == 1:
+                    print(end="I")
+                else:
+                    print(end=colored("I",'green')) # Print the initial state position
                 MazeInfo[i][j] = 2 # Annotates 2 to indicate the initial position
 
             elif state == FinalState:
-                print(end=colored("G", 'red')) # Print the final state position
+                if f == 1:
+                    print(end="G")
+                else:
+                    print(end=colored("G", 'red')) # Print the final state position
                 MazeInfo[i][j] = 3 # Annotates 3 to indicate goal position
 
             elif searchObstacle(obstaclesPosition,state) == True: # obstacle selection
@@ -100,12 +107,15 @@ def search(list, point): # Search in a list function
             return True
     return False
 
-def MazePrinter(Path, MazeInfo, rows, columns): #This function takes an already defined maze and print it again with the path
+def MazePrinter(Path, MazeInfo, rows, columns,f): #This function takes an already defined maze and print it again with the path
     
     print("*****SOLVED MAZE*****")
     print("\n")
-    print(end="Goal = "); print(end=colored("G",'red')); print(end=(", Initial position = ")); print(end=colored("I",'green'))
-    print(end=", Obstacle = #, "); print(end="Path = "); print(end=colored("o",'blue'))
+    if f != 1:
+        print(end="Goal = "); print(end=colored("G",'red')); print(end=(", Initial position = ")); print(end=colored("I",'green'))
+        print(end=", Obstacle = #, "); print(end="Path = "); print(end=colored("o",'blue'))
+    else:
+        print(end="Goal = G, Initial position = I, Obstacle = #, Path = o")
     print("")
     for i in range(0,columns+2): # Going through rows 
         print(end="#")       
@@ -116,23 +126,30 @@ def MazePrinter(Path, MazeInfo, rows, columns): #This function takes an already 
 
             if MazeInfo[i][j] == 0: # Print no obstacle
                 if search(Path,[i, j]) == True:
-                    
-                    print(end=colored("o",'blue')) # print step of the path
+                    if f == 1:
+                        print(end="o")
+                    else:
+                        print(end=colored("o",'blue')) # print step of the path
                 else:
                     print(end=" ")   # Print empty space                 
             elif MazeInfo[i][j] == 1: # Print obstacle
                 print(end="#")
             elif MazeInfo[i][j] == 2: #Print initial point
-                
-                print(end=colored("I",'green'))
+                if f == 1:
+                    print(end="I")
+                else:
+                    print(end=colored("I",'green'))
             elif MazeInfo[i][j] == 3: # Print Goal point
-                
-                print(end=colored("G", 'red'))
+                if f == 1:
+                    print(end="G")
+                else:
+                    print(end=colored("G", 'red'))
+
         print("#")
     for i in range(0,columns+2): # Going through rows 
         print(end="#")
 
-def MazeErrorPrint(MazeInfo, rows, columns): #This function takes an already defined maze and print it again with the path
+def MazeErrorPrint(MazeInfo, rows, columns,f): #This function takes an already defined maze and print it again with the path
     
     print("\n*****MAZE COULD NOT BE SOLVED*****")
     print("")
@@ -146,13 +163,20 @@ def MazeErrorPrint(MazeInfo, rows, columns): #This function takes an already def
             if MazeInfo[i][j] == 0: # Print no obstacle
                     print(end=" ")   # Print empty space                 
             elif MazeInfo[i][j] == 1: # Print obstacle
-                print(end=colored("#",'blue')) 
+                if f == 1:
+                    print(end="#")
+                else:
+                    print(end=colored("#",'blue')) 
             elif MazeInfo[i][j] == 2: #Print initial point
-                
-                print(end=colored("I",'green'))
+                if f == 1:
+                    print(end="I")
+                else:
+                    print(end=colored("I",'green'))
             elif MazeInfo[i][j] == 3: # Print Goal point
-                
-                print(end=colored("G", 'red'))
+                if f == 1:
+                    print(end="G")
+                else:
+                    print(end=colored("G", 'red'))
         print("#")
     for i in range(0,columns+2): # Going through rows 
         print(end="#") 
