@@ -6,6 +6,7 @@
 # TN = True Negatives
 import operator
 import matplotlib.pyplot as plt
+import numpy as np
 
 class Method:
 
@@ -67,7 +68,7 @@ print("Method | PR | SP | RC | FNR | FPR | ACC | S | FM")
 for object in List:    
     print("  " + object.Name + "     " + str(round(object.PR,2)) + "  " + str(round(object.SP,2)) + "  " + str(round(object.RC,2)) + "  " + str(round(object.FNR,2)) + "  "\
          + str(round(object.FPR,2)) + "  " + str(round(object.ACC,2)) + "  " + str(round(object.S,2)) + "  " + str(round(object.FM,2)))
-
+print("")
 # Metrics comparison and sorting
 PR_Sorted = sorted(List, key=operator.attrgetter('PR'))
 SP_Sorted = sorted(List, key=operator.attrgetter('SP'))
@@ -78,5 +79,88 @@ ACC_Sorted = sorted(List, key=operator.attrgetter('ACC'))
 S_Sorted = sorted(List, key=operator.attrgetter('S'))
 FM_Sorted = sorted(List, key=operator.attrgetter('FM'))
 
+# Print results
+print("The best method in Precision is " + PR_Sorted[-1].Name + " with PR = " + str(PR_Sorted[-1].PR))
+print("The best method in Specificity is " + SP_Sorted[-1].Name + " with SP = " + str(SP_Sorted[-1].SP))
+print("The best method in Recall is " + RC_Sorted[-1].Name + " with RC = " + str(RC_Sorted[-1].RC))
+print("The best method in False negative rate is " + FNR_Sorted[0].Name + " with FNR = " + str(FNR_Sorted[0].FNR))
+print("The best method in False Positive rate is " + FPR_Sorted[0].Name + " with FPR = " + str(FPR_Sorted[0].FPR))
 
+print("The best method in Accuracy is " + ACC_Sorted[-1].Name + " with ACC = " + str(ACC_Sorted[-1].ACC))
+print("The best method in Spatial Accuracy is " + S_Sorted[-1].Name + " with S = " + str(S_Sorted[-1].S))
+print("The best method in F-Measure is " + FM_Sorted[-1].Name + " with FM = " + str(FM_Sorted[-1].FM))
+## Plots
 
+# False Negatives Vs False Positives
+xPoints = []
+yPoints = []
+List_FN = sorted(List, key=operator.attrgetter('FN'))
+for i,object in enumerate(List_FN):
+    xPoints.append(object.FN)
+    yPoints.append(object.FP)
+
+xPoints_a = np.array(xPoints)
+yPoints_a = np.array(yPoints)
+
+plt.scatter(xPoints, yPoints)
+plt.plot(xPoints, yPoints)
+
+for i, obj in enumerate(List_FN):
+    plt.annotate(obj.Name, (xPoints[i], yPoints[i]))
+
+# x-axis label
+plt.xlabel('False Negatives')
+# frequency label
+plt.ylabel('False Positives')
+# plot title
+plt.title('False Negatives vs False Positives')
+# showing legend
+plt.show()
+
+# Precision Vs Recall
+xPoints = []
+yPoints = []
+for i,object in enumerate(PR_Sorted):
+    xPoints.append(object.PR)
+    yPoints.append(object.RC)
+
+xPoints_a = np.array(xPoints)
+yPoints_a = np.array(yPoints)
+
+for i, obj in enumerate(PR_Sorted):
+    plt.annotate(obj.Name, (xPoints[i], yPoints[i]))
+
+plt.scatter(xPoints, yPoints)
+plt.plot(xPoints, yPoints)
+# x-axis label
+plt.xlabel('Precision')
+# frequency label
+plt.ylabel('Recall')
+# plot title
+plt.title('Precision Vs Recall')
+# showing legend
+plt.show()
+
+# Accuracy Vs F-Measure
+xPoints = []
+yPoints = []
+for i,object in enumerate(ACC_Sorted):
+    xPoints.append(object.ACC)
+    yPoints.append(object.FM)
+
+for i, obj in enumerate(ACC_Sorted):
+    plt.annotate(obj.Name, (xPoints[i], yPoints[i]))
+
+xPoints_a = np.array(xPoints)
+yPoints_a = np.array(yPoints)
+
+plt.scatter(xPoints, yPoints)
+plt.plot(xPoints, yPoints)
+# x-axis label
+plt.xlabel('Accuracy')
+# frequency label
+plt.ylabel('F-Measure')
+# plot title
+plt.title('Accuracy Vs F-Measure')
+# showing legend
+plt.show()

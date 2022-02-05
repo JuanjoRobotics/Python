@@ -12,6 +12,7 @@ columns = 60 # Number of columns
 ObstaclesPercent = 30 # percent of obstacles in the maze
 Iterations = 100
 win = 0
+block = 0
 for i in range(Iterations):
     # Generate the random maze
     MazeInfo = Maze.mazeGenerator(rows,columns,
@@ -23,5 +24,8 @@ for i in range(Iterations):
 
         if (Path !=[]): # If the path is empty, do not print the solved maze, instead, print the maze without path
             win = win+1
+    else:
+        block = block + 1
     
 print(win)
+print(block)
