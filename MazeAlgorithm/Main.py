@@ -9,21 +9,22 @@ import Astar # A* algorithm calculator
 import sys
 
 
-rows = 80 # Number of rows
+rows = 40 # Number of rows
 columns = 60 # Number of columns
 ObstaclesPercent = 30 # percent of obstacles in the maze
-file = 0 # Decide to write on file or on terminal
+file = 0 # Decide to write on file or on terminal 0 - no; 1 - yes
 
 if file == 1:
-    sys.stdout = open("MazeOutput.txt","w")
+    sys.stdout = open("MazeOutput.txt","w") # If file option is activated, write only in file
 
 if file != 1:
-    input("Press a key to start...")
+    input("Press a key to start...") # enable inputs only in no-file mode
 
 # Generate the random maze
 
 print("\nGenerating Maze...")
 print("")
+
 MazeInfo = Maze.mazeGenerator(rows,columns,
  ObstaclesPercent, file) # Saving the information of the maze, where 1 is obstacle, 0 is no obstacle, 2 is initial position and 3 is goal
 

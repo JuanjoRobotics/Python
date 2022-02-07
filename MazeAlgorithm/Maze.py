@@ -8,6 +8,7 @@ import math as m # for math rounding up
 import colorama
 from termcolor import colored #for terminal colors
 import os # To print colors in a windows terminal
+
 os.system('color')
 colorama.init()
 

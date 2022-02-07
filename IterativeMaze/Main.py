@@ -7,9 +7,9 @@
 import Maze # Maze generator and printer
 import Astar # A* algorithm calculator
 
-rows = 80 # Number of rows
-columns = 60 # Number of columns
-ObstaclesPercent = 30 # percent of obstacles in the maze
+rows = 60 # Number of rows
+columns = 80 # Number of columns
+ObstaclesPercent = 40 # percent of obstacles in the maze
 Iterations = 100
 win = 0
 block = 0
@@ -29,3 +29,5 @@ for i in range(Iterations):
     
 print(win)
 print(block)
+print("With " + str(Iterations) + " We obtained " + str(win)\
+     +  " wins, and the goal or initial position were blocked " + str(block) + " times.")
