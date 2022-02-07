@@ -9,7 +9,7 @@ import colorama
 from termcolor import colored #for terminal colors
 import os # To print colors in a windows terminal
 
-os.system('color')
+os.system('color') # These lines allows coloring in windows terminal
 colorama.init()
 
 def FailMessage(fail,f): # Print a message if the maze generation fails

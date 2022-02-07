@@ -27,7 +27,5 @@ for i in range(Iterations):
     else:
         block = block + 1
     
-print(win)
-print(block)
 print("With " + str(Iterations) + " We obtained " + str(win)\
      +  " wins, and the goal or initial position were blocked " + str(block) + " times.")

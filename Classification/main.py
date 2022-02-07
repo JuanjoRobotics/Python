@@ -4,9 +4,10 @@
 # FP = False Positives
 # FN = False Negatives
 # TN = True Negatives
-import operator
-import matplotlib.pyplot as plt
-import numpy as np
+
+import operator # Allow us to sort using a class attribute
+import matplotlib.pyplot as plt # Plotting and figures
+import numpy as np # numeric arrays
 
 class Method:
 
@@ -114,7 +115,6 @@ plt.xlabel('False Negatives')
 plt.ylabel('False Positives')
 # plot title
 plt.title('False Negatives vs False Positives')
-# showing legend
 plt.show()
 
 # Precision Vs Recall
@@ -138,7 +138,6 @@ plt.xlabel('Precision')
 plt.ylabel('Recall')
 # plot title
 plt.title('Precision Vs Recall')
-# showing legend
 plt.show()
 
 # Accuracy Vs F-Measure
@@ -162,5 +161,4 @@ plt.xlabel('Accuracy')
 plt.ylabel('F-Measure')
 # plot title
 plt.title('Accuracy Vs F-Measure')
-# showing legend
 plt.show()

@@ -135,8 +135,8 @@ def Astar_func(MazeInfo, rows, columns): # Main function of the A* algorithm
         Open_set.sort() # sort by f value
 
     print("Sorry, cannot find a valid path, the goal is blocked")
-    Path = []
-    return Path
+    Path = [] # Return an empty path to say that the goal is unreachable.
+    return Path 
     
 
     

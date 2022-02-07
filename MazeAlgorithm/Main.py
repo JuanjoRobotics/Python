@@ -2,14 +2,15 @@
     then, it mark 2 random spaces as initial position and goal.
     After generating the maze, we use the A* algorithm to check
     every possible path and select the optimus one. If no path is
-    available, a message is printed on screen saying it."""
+    available, a message is printed on screen saying it.
+    
+    Author: Juan Jose Garcia Quiles"""
 
 import Maze # Maze generator and printer
 import Astar # A* algorithm calculator
 import sys
 
-
-rows = 40 # Number of rows
+rows = 80 # Number of rows
 columns = 60 # Number of columns
 ObstaclesPercent = 30 # percent of obstacles in the maze
 file = 0 # Decide to write on file or on terminal 0 - no; 1 - yes
